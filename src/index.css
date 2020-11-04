@@ -1,7 +1,7 @@
 :root {
     --around-purple: #9447ff;
     --around-purple-lighter: #ac70ff;
-    --duration-fast: 250ms;
+    --duration-fast: 150ms;
     --border-width: 2px;
 }
 

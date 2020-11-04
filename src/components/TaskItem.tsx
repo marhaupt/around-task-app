@@ -6,7 +6,7 @@ export const TaskItem = styled.li<{ state: TaskStateEnum }>`
     display: grid;
     grid-template-columns: auto 1fr auto;
     column-gap: 0.5rem;
-    align-items: start;
+    align-items: center;
     color: ${({ state }) =>
         state === TaskStateEnum.done ? '#777' : 'inherit'};
     text-decoration: ${({ state }) =>

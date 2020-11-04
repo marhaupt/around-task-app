@@ -15,7 +15,7 @@ const TaskInput: React.FunctionComponent<TaskInputProps> = ({ addTask }) => {
         if (newTask.trim().length > 0) {
             addTask({
                 id: uuid4(),
-                description: newTask,
+                description: newTask.trim(),
                 state: TaskStateEnum.active,
             });
             setNewTask('');

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { TaskItem, TaskText, TextInput, IconButton } from '../components';
+import { TaskItem, TaskText, TextInput, IconButton, CheckBox } from '../components';
 import { TaskType, TaskStateEnum } from '../types';
 
 type TaskProps = {
@@ -11,18 +11,18 @@ type TaskProps = {
 };
 
 const Task: React.FunctionComponent<TaskProps> = ({
-    task: { id, state, description },
+    task,
     changeTaskDescription,
     removeTask,
     toggleTaskState,
 }) => {
     const [edited, setEdited] = useState<boolean>(false);
-    const [inputText, setInputText] = useState<string>(description);
+    const [inputText, setInputText] = useState<string>(task.description);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const confirmNewDescription = (): void => {
-        changeTaskDescription(id, inputText);
+        changeTaskDescription(task.id, inputText);
         setEdited(false);
     };
 
@@ -33,11 +33,10 @@ const Task: React.FunctionComponent<TaskProps> = ({
     }, [edited]);
 
     return (
-        <TaskItem key={id} state={state}>
-            <input
-                type="checkbox"
-                checked={state === TaskStateEnum.done}
-                onChange={() => toggleTaskState(id)}
+        <TaskItem key={task.id} state={task.state}>
+            <CheckBox
+                checked={task.state === TaskStateEnum.done}
+                onChange={() => toggleTaskState(task.id)}
             />
             {edited ? (
                 <TextInput
@@ -59,15 +58,15 @@ const Task: React.FunctionComponent<TaskProps> = ({
             ) : (
                 <TaskText
                     onClick={(): void => {
-                        if (state === TaskStateEnum.active) {
+                        if (task.state === TaskStateEnum.active) {
                             setEdited(!edited);
                         }
                     }}
                 >
-                    {description}
+                    {task.description}
                 </TaskText>
             )}
-            <IconButton onClick={(): void => removeTask(id)}>×</IconButton>
+            <IconButton onClick={(): void => removeTask(task.id)}>×</IconButton>
         </TaskItem>
     );
 };
